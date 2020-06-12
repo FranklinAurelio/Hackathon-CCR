@@ -2,10 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/Login.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sentry/sentry.dart';
+
+final String termosPrivacidade = "https://www.lexio.legal/modelo/termos-de-uso";
+final String termosdeUso = "https://www.lexio.legal/modelo/termos-de-uso";
 
 //Sentry service connection for bugs reporting
 final _sentry = SentryClient(dsn: null);
@@ -38,22 +42,24 @@ void main() {
   };
 
   //This function only works on Dart 2.8.x
-  runZonedGuarded<Future<void>>(
+  /*runZonedGuarded<Future<void>>(
     () async {
       runApp(MyApp());
     },
     _onError,
   );
 
+   */
+
   //use this if you are using dart 2.7.x or behavior
-  /*
+
   runZoned<Future<void>>(
     () async {
       runApp(MyApp());
     },
     onError: _onError
   );
-   */
+
 }
 
 class MyApp extends StatelessWidget {
@@ -61,7 +67,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: Login(),
     );
   }
 }
@@ -208,6 +214,16 @@ class _HomePageState extends State<HomePage> {
                       //
                     },
                   ),
+                ),
+                SizedBox(width: 50.0,),
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  iconSize: 50.0,
+                  alignment: Alignment.bottomLeft,
+                  color: Colors.black,
+                  onPressed: () async{
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),
