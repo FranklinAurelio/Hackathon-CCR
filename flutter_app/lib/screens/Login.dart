@@ -1,14 +1,14 @@
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'User.dart';
+import 'package:flutterapp/Models/User.dart';
 import 'pagePdfView.dart';
-import 'defaults.dart';
+import 'package:flutterapp/utils/defaults.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutterapp/LoginFunction.dart';
-import 'main.dart';
+import 'package:flutterapp/Functions/LoginFunction.dart';
+import 'package:flutterapp/main.dart';
 
 class Login extends StatefulWidget {
   @override

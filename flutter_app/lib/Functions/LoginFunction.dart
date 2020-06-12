@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'main.dart';
+import 'package:flutterapp/main.dart';
 
 bool checkEmail(String email){
   String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -11,6 +11,7 @@ bool checkEmail(String email){
 bool validString(String input){
   RegExp regExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
   return regExp.hasMatch(input);
+  
 }
 
 bool validNumber(String input){

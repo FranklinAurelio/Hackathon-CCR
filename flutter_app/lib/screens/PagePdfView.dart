@@ -7,7 +7,7 @@ import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:path_provider/path_provider.dart';
-import 'defaults.dart';
+import 'package:flutterapp/utils/defaults.dart';
 
 class PdfView extends StatefulWidget {
   String url;
