@@ -12,6 +12,43 @@ class NotificationRepository {
   static FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
+  static AndroidNotificationChannel get _androidChannel =>
+      const AndroidNotificationChannel(
+        'channel_notification',
+        'Notificações',
+        'Notificações',
+        enableLights: true,
+        enableVibration: true,
+        importance: Importance.Max,
+        playSound: true,
+        showBadge: true,
+      );
+
+  static AndroidNotificationDetails get _androidDetails =>
+      const AndroidNotificationDetails(
+        'channel_notification',
+        'Notificações',
+        'Notificações',
+        enableLights: true,
+        enableVibration: true,
+        importance: Importance.Max,
+        playSound: true,
+        channelShowBadge: true,
+      );
+
+  static IOSNotificationDetails get _iosDetails => const IOSNotificationDetails(
+        presentSound: true,
+        presentBadge: true,
+      );
+
+  static Future<void> registerPeriodicallyHourlyShow(
+      {String title, String body}) async {
+    final platformChannelSpecifics =
+        NotificationDetails(_androidDetails, _iosDetails);
+    await _plugin.periodicallyShow(
+        0, title, body, RepeatInterval.Hourly, platformChannelSpecifics);
+  }
+
   static Future<void> init({
     _ReceivedNotificationCallback receivedNotificationCallback,
     _SelectedNotificationCallback selectedNotificationCallback,
@@ -32,20 +69,10 @@ class NotificationRepository {
         initSettings,
         onSelectNotification: selectedNotificationCallback,
       );
-      final androidNotificationChannel = AndroidNotificationChannel(
-        'channel_notification',
-        'Notificações',
-        'Notificações',
-        enableLights: true,
-        enableVibration: true,
-        importance: Importance.Max,
-        playSound: true,
-        showBadge: true,
-      );
       await _plugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(androidNotificationChannel);
+          ?.createNotificationChannel(_androidChannel);
     } catch (e, str) {
       if (kDebugMode) {
         print('Error caught: $e');

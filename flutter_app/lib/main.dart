@@ -4,12 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp/repositories/notification.dart';
-import 'package:flutterapp/screens/Login.dart';
 import 'package:flutterapp/settings/routes.dart';
-import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
-import 'package:loading/loading.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:sentry/sentry.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final String termosPrivacidade = "https://www.lexio.legal/modelo/termos-de-uso";
 final String termosdeUso = "https://www.lexio.legal/modelo/termos-de-uso";
@@ -74,14 +71,16 @@ class _MyAppState extends State<MyApp> {
     AppRoutes.setRoutes();
     Future<void>.microtask(() {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-      NotificationRepository.init(
-        receivedNotificationCallback: (notification) {
-          print(notification.toJson());
-        },
-        selectedNotificationCallback: (payload) {
-          print(payload);
-        }
-      );
+      NotificationRepository.init(receivedNotificationCallback: (notification) {
+        print(notification.toJson());
+      }, selectedNotificationCallback: (payload) {
+        print(payload);
+      });
+      Future.delayed(const Duration(minutes: 15)).then((value) {
+        NotificationRepository.registerPeriodicallyHourlyShow(
+            title: 'Cuide da sua saúde',
+            body: 'Não esqueça de manter seu copor hidratado!');
+      });
     });
   }
 
@@ -247,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomLeft,
                   color: Colors.black,
                   onPressed: () async {
-                    Navigator.pushReplacementNamed(context,AppRoutes.login);
+                    Navigator.pushReplacementNamed(context, AppRoutes.login);
                   },
                 ),
               ],
