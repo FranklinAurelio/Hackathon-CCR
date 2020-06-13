@@ -1,9 +1,10 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Models/User.dart';
 import 'package:flutterapp/main.dart';
 import 'package:flutterapp/settings/routes.dart';
 import 'package:flutterapp/utils/defaults.dart';
+import 'package:flutterapp/Functions/LoginFunction.dart';
 
 import 'pagePdfView.dart';
 
@@ -13,7 +14,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  /*@override
+  Usuario user;
+  @override
   void dispose() {
     super.dispose();
   }
@@ -44,13 +46,12 @@ class _LoginState extends State<Login> {
 
         user = Usuario(id: current.email);
         await user.reload();
-        carrinho = new Carrinho(idUsuario: user.id);
         Navigator.pushAndRemoveUntil(
-            context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
-          create: (_) => MenuProvider(),
-          child: HomeScreen(),
-        )), (
-            Route<dynamic> route) => false);
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+                (Route<dynamic> route) => false);
 
         isLoading = false;
       } on Exception catch (_){
@@ -64,7 +65,6 @@ class _LoginState extends State<Login> {
       print('sem login em cache');
   }
 
-   */
 
   final emailController = TextEditingController();
   final pwdController = TextEditingController();
@@ -72,6 +72,17 @@ class _LoginState extends State<Login> {
   static String errorMessage = "";
 
   static bool isLoading = false;
+
+  reloadAndNextScreen() async{
+    user = Usuario(id: emailController.text);
+    await user.reload();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+            (Route<dynamic> route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,8 +191,7 @@ class _LoginState extends State<Login> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600)),
                                 onPressed: () async {
-                                  Navigator.pushReplacementNamed(context, AppRoutes.home);
-                                  /*String email = emailController.text.toString().trim();
+                                  String email = emailController.text.toString().trim();
                                 String pwd = pwdController.text.toString().trim();
 
                                 if(email != "") {
@@ -226,7 +236,7 @@ class _LoginState extends State<Login> {
                                   });
                                 }
 
-                                 */
+
                                 },
                               ),
                             ),
@@ -299,6 +309,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Usuario user;
+
   @override
   void dispose() {
     super.dispose();
@@ -323,15 +335,16 @@ class _RegisterState extends State<Register> {
 
   static bool isLoading = false;
 
-  _novoUsuario() {
-    Usuario(
-      id: emailController.text,
-      name: name.text,
-      email: emailController.text,
-      rg: int.tryParse(rg.text),
-      cpf: cpf.text,
-      phone: int.tryParse(phone.text),
+  _novoUsuario(){
+    user = Usuario(
+        id: emailController.text,
+        name: name.text,
+        email: emailController.text,
+        rg: int.tryParse(rg.text),
+        cpf: cpf.text,
+        phone: int.tryParse(phone.text),
     );
+    user.save();
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -637,7 +650,7 @@ class _RegisterState extends State<Register> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => HomePage()));
-                                /*String email = emailController.text.toString().trim();
+                                String email = emailController.text.toString().trim();
                               String pwd = pwdController.text.toString().trim();
 
                               if(concordoPrivacidade && concordoUso){
@@ -738,7 +751,7 @@ class _RegisterState extends State<Register> {
                                 }
                               }
 
-                               */
+
                               },
                             ),
                           ),

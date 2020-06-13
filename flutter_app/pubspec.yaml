@@ -41,6 +41,8 @@ dependencies:
   router_management: any
   font_awesome_flutter: any
   flutter_local_notifications: any
+  google_map_polyline: ^0.2.0+1
+  google_maps_flutter: ^0.5.24+1
 
 
 dev_dependencies:
