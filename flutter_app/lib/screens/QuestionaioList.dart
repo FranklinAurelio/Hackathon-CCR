@@ -56,8 +56,8 @@ class QuestionarioList extends StatelessWidget {
     _questionarios.add(Questionario(id: "2", titulo: "Questionário sobre falta de ar",descricao: "Questionário relacionado a sintomas como falta de ar", questoes: questoes));
 
     questoes = ["Você já estava com dor de cabeça e ela piorou muito? ","A dor de cabeça não melhora com analgésicos, como Dipirona e Paracetamol?","A dor de cabeça é de forte intensidade e começou muito rápido?",
-      "Você apresenta sintomas como ferbe, perda de peso recente, manchas na pele, dor nas costas ou no pescoço ao mexer a cabeça?",
-      "Você está com a visão embaçada e ou sonolência fora do normal?", "Caso você tenha enxaqueca, a dor de cabeça agora parece mais forte do que as que você já teve antes?"];
+      "Você apresenta sintomas como febre, perda de peso recente, manchas na pele, dor nas costas ou no pescoço ao mexer a cabeça?",
+      "Você está com a visão embaçada e ou sonolência fora do normal?", "Caso você tenha enxaqueca, a dor de cabeça agora parece mais forte do que as que você já teve antes?", "Você está com fraqueza em algum braço ou perna?"];
     _questionarios.add ( Questionario(id: "3", titulo: "Questionário sobre Dor de cabeça",descricao: "Questionário relacionado a sintomas como dor de cabeça", questoes: questoes));
 
     questoes = ["A dor é difusa ou imprecisa?", "A dor é constante, de forte intensidade e em aperto?",
