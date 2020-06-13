@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterapp/repositories/notification.dart';
 import 'package:flutterapp/screens/Login.dart';
 import 'package:flutterapp/settings/routes.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
@@ -73,6 +74,14 @@ class _MyAppState extends State<MyApp> {
     AppRoutes.setRoutes();
     Future<void>.microtask(() {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      NotificationRepository.init(
+        receivedNotificationCallback: (notification) {
+          print(notification.toJson());
+        },
+        selectedNotificationCallback: (payload) {
+          print(payload);
+        }
+      );
     });
   }
 
