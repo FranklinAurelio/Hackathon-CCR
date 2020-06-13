@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterapp/screens/Login.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
@@ -53,13 +54,9 @@ void main() {
 
   //use this if you are using dart 2.7.x or behavior
 
-  runZoned<Future<void>>(
-    () async {
-      runApp(MyApp());
-    },
-    onError: _onError
-  );
-
+  runZoned<Future<void>>(() async {
+    runApp(MyApp());
+  }, onError: _onError);
 }
 
 class MyApp extends StatelessWidget {
@@ -94,6 +91,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   int index;
+
+  @override
+  void initState() {
+    super.initState();
+    Future<void>.microtask(() {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -215,13 +220,15 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-                SizedBox(width: 50.0,),
+                SizedBox(
+                  width: 50.0,
+                ),
                 IconButton(
                   icon: Icon(Icons.exit_to_app),
                   iconSize: 50.0,
                   alignment: Alignment.bottomLeft,
                   color: Colors.black,
-                  onPressed: () async{
+                  onPressed: () async {
                     Navigator.pop(context);
                   },
                 ),
