@@ -181,6 +181,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onPressed: () async {
+                      Navigator.pushNamed(context, AppRoutes.saude);
                       //
                     },
                   ),

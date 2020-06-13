@@ -14,6 +14,7 @@ class Usuario {
   String genero;
   int phone;
   String picture;
+  int idade;
   List<double> lat_lng;
 
   Usuario(
@@ -25,6 +26,7 @@ class Usuario {
         this.genero,
         this.phone,
         this.picture,
+        this.idade,
         this.lat_lng});
 
   fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class Usuario {
     this.genero = json['genero'];
     this.phone = json['phone'];
     this.picture = json['picture'];
+    this.idade = json['idade'];
     if(json.containsKey('lat_lng'))
       if(json['lat_lng']!=null)
         this.lat_lng = json['lat_lng'].cast<double>();
@@ -52,6 +55,7 @@ class Usuario {
     data['phone'] = this.phone;
     data['picture'] = this.picture;
     data['lat_lng'] = this.lat_lng;
+    data['idade'] = this.idade;
     return data;
   }
 
