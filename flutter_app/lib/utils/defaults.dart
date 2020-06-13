@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class Defaults {
 
+  Defaults._internal();
+
   static const Color primary = const Color(0xffff6238);
   static const Color dark = const Color(0xff333333);
   static const Color light = const Color(0xffcccccc);

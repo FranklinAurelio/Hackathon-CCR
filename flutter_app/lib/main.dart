@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp/screens/Login.dart';
+import 'package:flutterapp/settings/routes.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,12 +60,28 @@ void main() {
   }, onError: _onError);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    AppRoutes.setRoutes();
+    Future<void>.microtask(() {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Login(),
+      title: 'Anjo da estrada',
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: AppRoutes.controller.onGenerateRoute,
     );
   }
 }
@@ -91,14 +108,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   int index;
-
-  @override
-  void initState() {
-    super.initState();
-    Future<void>.microtask(() {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onPressed: () async {
-                      //
+                      Navigator.pushNamed(context, AppRoutes.panico);
                     },
                   ),
                 ),
@@ -229,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomLeft,
                   color: Colors.black,
                   onPressed: () async {
-                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context,AppRoutes.login);
                   },
                 ),
               ],
