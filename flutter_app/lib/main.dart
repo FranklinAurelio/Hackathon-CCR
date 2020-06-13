@@ -10,6 +10,13 @@ import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sentry/sentry.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flutter_mapbox_navigation/flutter_mapbox_navigation.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_map_polyline/google_map_polyline.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 final String termosPrivacidade = "https://www.lexio.legal/modelo/termos-de-uso";
 final String termosdeUso = "https://www.lexio.legal/modelo/termos-de-uso";
@@ -88,11 +95,61 @@ class _MyAppState extends State<MyApp> {
 }
 
 class HomePage extends StatefulWidget {
+
+  final LatLng destinyAddress;
+  HomePage({this.destinyAddress});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  Location startPoint;
+  Location endPoint;
+
+  MapboxNavigation _directions;
+  bool _arrived = false;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+    initialLocation();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void initialLocation() async {
+    print("Carregando Localizacao");
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    startPoint = Location(name: "Me", latitude: position.latitude, longitude: position.longitude);
+    print("${position.latitude}, ${position.longitude}");
+    setState(() { });
+  }
+
+  Future<void> initPlatformState() async {
+    if (!mounted) return;
+
+    _directions = MapboxNavigation(
+        onRouteProgress: (arrived) async {
+          setState(() {
+            _arrived = arrived;
+          });
+
+          if (arrived) {
+            await Future.delayed(Duration(seconds: 3));
+            await _directions.finishNavigation();
+          }
+        }
+    );
+  }
+
+
+
   Future<void> _launched;
 
   Future<void> _launchInBrowser(String url) async {
@@ -157,7 +214,24 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onPressed: () async {
-                      _launched = _launchInBrowser(toLaunch);
+                      try {
+                        print("Carregando navigation");
+
+                        endPoint = Location(name: 'Destino', latitude: this.widget.destinyAddress.latitude, longitude: this.widget.destinyAddress.longitude);
+
+                        await _directions.startNavigation(
+                            origin: startPoint,
+                            destination: endPoint,
+                            mode: NavigationMode.drivingWithTraffic,
+                            simulateRoute: false,
+                            units: VoiceUnits.metric,
+                            language: "Portuguese"
+                        );
+                      } catch (e) {
+                        toast("Erro no mapa");
+                        print("Erro no navigation");
+                        print(e.toString());
+                      }
                     },
                   ),
                 ),
@@ -236,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomLeft,
                   color: Colors.black,
                   onPressed: () async {
-                    Navigator.pushReplacementNamed(context,AppRoutes.login);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
                   },
                 ),
               ],
@@ -244,6 +318,45 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+    );
+  }
+  void toast(String msg) {
+    showToastWidget(
+        Material(
+          child: Container(
+            height: 60.0,
+            margin: EdgeInsets.symmetric(horizontal: 50.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 17.0),
+            decoration: ShapeDecoration(
+              color: Colors.black.withOpacity(0.9),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "$msg",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontFamily: "Roboto"
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        context: context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+        reverseAnimation: StyledToastAnimation.fade,
+        duration: Duration(seconds: 4),
+        animDuration: Duration(seconds: 1),
+        curve: Curves.elasticOut,
+        reverseCurve: Curves.linear
     );
   }
 }
