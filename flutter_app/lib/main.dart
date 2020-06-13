@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterapp/screens/Financeiro.dart';
 import 'package:flutterapp/screens/Login.dart';
 import 'package:flutterapp/settings/routes.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
@@ -141,9 +142,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 12.0,
-                ),
                 Material(
                   borderRadius: BorderRadius.circular(8.0),
                   color: Colors.red,
@@ -203,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onPressed: () async {
-                      //
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Finances()));
                     },
                   ),
                 ),

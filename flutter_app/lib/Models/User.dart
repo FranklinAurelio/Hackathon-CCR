@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 
-final ref = Firestore.instance.collection('Users');
+//final ref = Firestore.instance.collection('Users');
 
 
 class Usuario {
@@ -55,10 +55,12 @@ class Usuario {
   }
 
   save() async{
+    var ref = Firestore.instance.collection("Usuarios");
     await ref.document(this.id).setData(toJson());
   }
 
   reload() async{
+    var ref = Firestore.instance.collection("Usuarios");
     this.fromJson((await ref.document(this.id).get()).data);
     print('usuário recarregado');
   }
