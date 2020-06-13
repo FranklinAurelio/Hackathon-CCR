@@ -3,7 +3,6 @@ import 'package:geolocator/geolocator.dart';
 
 final ref = Firestore.instance.collection('Users');
 
-final ganhoEntrega = 5.00;
 
 class Usuario {
   String id;
