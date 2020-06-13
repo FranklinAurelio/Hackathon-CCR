@@ -76,11 +76,10 @@ class _MyAppState extends State<MyApp> {
       }, selectedNotificationCallback: (payload) {
         print(payload);
       });
-      Future.delayed(const Duration(minutes: 15)).then((value) {
-        NotificationRepository.registerPeriodicallyHourlyShow(
-            title: 'Cuide da sua saúde',
-            body: 'Não esqueça de manter seu copor hidratado!');
-      });
+      NotificationRepository.registerPeriodicallyHourlyShow(
+        title: 'Cuide da sua saúde',
+        body: 'Não esqueça de manter seu copor hidratado!',
+      );
     });
   }
 

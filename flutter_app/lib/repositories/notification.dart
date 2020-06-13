@@ -43,10 +43,22 @@ class NotificationRepository {
 
   static Future<void> registerPeriodicallyHourlyShow(
       {String title, String body}) async {
-    final platformChannelSpecifics =
-        NotificationDetails(_androidDetails, _iosDetails);
-    await _plugin.periodicallyShow(
-        0, title, body, RepeatInterval.Hourly, platformChannelSpecifics);
+    try {
+      final platformChannelSpecifics =
+          NotificationDetails(_androidDetails, _iosDetails);
+      await _plugin.periodicallyShow(
+        0,
+        title,
+        body,
+        RepeatInterval.Hourly,
+        platformChannelSpecifics,
+      );
+    } catch (e, str) {
+      if (kDebugMode) {
+        print('Error caught: $e');
+        print(str);
+      }
+    }
   }
 
   static Future<void> init({
@@ -54,7 +66,7 @@ class NotificationRepository {
     _SelectedNotificationCallback selectedNotificationCallback,
   }) async {
     try {
-      final androidSettings = AndroidInitializationSettings('app_icon');
+      final androidSettings = AndroidInitializationSettings('ic_launcher');
       final iosSettings = IOSInitializationSettings(
           onDidReceiveLocalNotification: (id, title, body, payload) async {
         receivedNotificationCallback(ReceivedNotification(
