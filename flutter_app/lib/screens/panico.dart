@@ -1,12 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/repositories/url_launch.dart';
 import 'package:flutterapp/widgets/logo.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../utils/defaults.dart';
-import '../utils/defaults.dart';
 
 class PanicoScreen extends StatelessWidget {
+
+  ShapeBorder get _defaultBorder => const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12.0))
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +42,7 @@ class PanicoScreen extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
                       Card(
+                        shape: _defaultBorder,
                         margin: EdgeInsets.zero,
                         color: Defaults.red,
                         child: Padding(
@@ -52,6 +58,7 @@ class PanicoScreen extends StatelessWidget {
                         ),
                       ),
                       Card(
+                        shape: _defaultBorder,
                         color: Defaults.red,
                         margin: EdgeInsets.zero,
                         child: Padding(
