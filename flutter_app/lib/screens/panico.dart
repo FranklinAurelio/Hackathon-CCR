@@ -8,7 +8,6 @@ class PanicoScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Acione'),
       ),
-      body: C,
     );
   }
 }
