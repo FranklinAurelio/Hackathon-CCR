@@ -18,6 +18,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'Functions/LoginFunction.dart';
+
 final String termosPrivacidade = "https://www.lexio.legal/modelo/termos-de-uso";
 final String termosdeUso = "https://www.lexio.legal/modelo/termos-de-uso";
 
@@ -164,7 +166,6 @@ class _HomePageState extends State<HomePage> {
       throw 'Could not launch $url';
     }
   }
-
   int index;
 
   @override
@@ -310,7 +311,8 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomLeft,
                   color: Colors.black,
                   onPressed: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                    await logout();
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false);
                   },
                 ),
               ],
