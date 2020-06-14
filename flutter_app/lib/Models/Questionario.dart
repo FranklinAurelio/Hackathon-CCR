@@ -7,7 +7,7 @@ class Questionario {
   String id;
   String titulo;
   List<String> questoes;
-  List<String> respostas;
+  List<String> respostas = new List();
 
   //Injetar usuaio logado
   Usuario usuario;
@@ -54,8 +54,7 @@ class Questionario {
   String getResultado() {
     if (titulo == "Questionário sobre falta de ar") {
       if (respostas.asMap()[1] == "sim" &&
-          (respostas.asMap()[2] == "asma" ||
-              respostas.asMap()[2] == "enfisema")) {
+          (respostas.asMap()[2] == "sim")) {
         return "Se você tiver uma bombinha, utilize-a,e espere alguns minutos, caso a falta de ar persista, procure ajuda médica";
       } else if (respostas.asMap()[3] == "sim" ||
           respostas.asMap()[4] == "sim" ||
@@ -148,6 +147,22 @@ class Questionario {
         return "Você precisa de avaliação médica o quanto antes, contate -nos pela teleconsulta ou procure atendimento pessoalmente.";
       } else {
         return "Você provavelmente está com uma infecção intestinal, beba bastante água e lave as mãos frequentemente. Se a diarreia não melhorar, ou se os sintomas piorarem, procure ajuda médica.";
+      }
+    } else if (titulo == "Questionário sobre Depressão") {
+      respostas.removeWhere((element) => element != "sim");
+      if (respostas.asMap().length >= 5){
+        return "Provável depressão: Você precisa ser avaliado por um médico. Se você está se sentindo triste ou sem esperança, saiba que médicos e psicólogos podem lhe oferecer todo o apoio necessário. "
+            "Contate a teleconsulta do aplicativo ou, se você estiver muito mal, ligue para o número 188, lá pessoas qualificadas podem conversar com você a qualquer hora do dia sobre como está se sentindo.";
+      } else {
+        return "Você não precisa ser avaliado por um médico no momento, mas se quiser, pode ligar na teleconsulta e a equipe de saúde irá lhe ouvir.";
+      }
+    } else if (titulo == "Questionário sobre Ansiedade") {
+      respostas.removeWhere((element) => element != "sim");
+      if (respostas.asMap().length >=7) {
+        return "Você está com uma ansiedade importante, e precisa procurar ajuda médica, principalmente se você estiver passando por uma situação difícil na sua vida. "
+            "Nós queremos lhe ajudar a ter qualidade de vida, não sinta vergonha em ligar na teleconsulta.";
+      } else {
+        return "Você não parece estar com uma ansiedade importante, mas se você se sente preocupado a ponto de estar atrapalhando a sua vida, procure ajuda médica.";
       }
     }
   }

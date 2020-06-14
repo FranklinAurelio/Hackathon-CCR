@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutterapp/screens/QuestionaioList.dart';
-import 'file:///C:/projetos/Hackathon-CCR/flutter_app/lib/screens/questoes/QuestoesList.dart';
 import 'package:flutterapp/screens/panico.dart';
+import 'package:flutterapp/screens/questoes/QuestoesList.dart';
 import 'package:router_management/router_management.dart';
 
 import '../main.dart';

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Models/Questionario.dart';
@@ -15,6 +17,7 @@ class QuestoesList extends StatefulWidget {
 class _QuestoesListState extends State<QuestoesList> {
   Questionario questionario;
   final bloc = QuestoesBloc();
+  bool showDialog = true;
 
   int index = 1;
 
@@ -29,13 +32,63 @@ class _QuestoesListState extends State<QuestoesList> {
   TextStyle get body => Theme.of(context).textTheme.bodyText1.apply(color: Colors.white);
 
   @override
+  void setState(fn) {
+    super.setState(fn);
+  }
+
+  Widget _responder(String resposta) {
+    questionario.respostas.add(resposta);
+
+    if (questionario.questoes
+        .asMap()
+        .length - 1 != index) {
+      setState(() {
+        this.index += 1;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           const BackgroundImageWidget(),
-          SafeArea(
+          questionario.questoes.asMap().length-1 == index ? AlertDialog(
+            title: Text('Resultado'),
+            content: Text(questionario.getResultado().toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ) : questionario.id == "10" && showDialog ? AlertDialog(
+            title: Text('Resultado'),
+            content: Text("Durante as últimas 2 semanas, os seguintes sintomas ocorreram várias vezes e isso te incomodou muito?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  setState(() {this.showDialog = false ;});
+                },
+              ),
+            ],
+          ) : questionario.id == "11" && showDialog ?  AlertDialog(
+            title: Text('Resultado'),
+            content: Text("Nas 2 últimas semanas, responda se você sentiu os seguintes sintomas com GRANDE intensidade:"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  setState(() {this.showDialog = false ;});
+                },
+              ),
+            ],
+          ) : SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -70,7 +123,7 @@ class _QuestoesListState extends State<QuestoesList> {
                                     child: RadioListTile(
                                       activeColor: Colors.white,
                                       title: Text('Sim', style: body,),
-                                      value: 'Sim',
+                                      value: 'sim',
                                       groupValue: value,
                                       onChanged: (newValue) =>
                                           bloc.answer = newValue,
@@ -80,7 +133,7 @@ class _QuestoesListState extends State<QuestoesList> {
                                     child: RadioListTile(
                                       title: Text('Não', style: body,),
                                       activeColor: Colors.white,
-                                      value: 'Não',
+                                      value: 'não',
                                       groupValue: value,
                                       onChanged: (newValue) =>
                                           bloc.answer = newValue,
@@ -93,7 +146,12 @@ class _QuestoesListState extends State<QuestoesList> {
                               ),
                               ButtonWidget(
                                 color: Colors.white,
-                                onPressed: value != null ? () {} : null,
+                                onPressed: value != null ? () {
+                                  print(value);
+                                    if (questionario.questoes.asMap().length -1 != index) {
+                                      _responder(value);
+                                    }
+                                  } : null,
                                 child: Text('Enviar'),
                               ),
                                SizedBox(height: questionario.id == "4" ? 24.0 : 0,),

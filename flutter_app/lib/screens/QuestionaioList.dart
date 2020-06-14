@@ -191,6 +191,54 @@ class QuestionarioList extends StatelessWidget {
         titulo: "Questionário sobre Diarreia",
         descricao: "Questionário relacionado a sintomas como diarréia",
         questoes: questoes));
+
+
+    questoes = [
+      "Pouco interesse ou pouco prazer em fazer as coisas",
+      "Se sentir pra baixo, deprimido ou sem perspectiva",
+      "Dificuldade em pegar no sono ou permanecer dormindo, ou dormir mais que o de costume",
+      "Se sentir cansado ou com pouca energia",
+      "Falta de apetite ou comendo demais",
+      "Se sentir mal consigo mesmo(a), ou achar que você é um fracasso ou que decepcionou sua família ou você mesmo(a)",
+      "Dificuldade para se concentrar nas coisas, como ler o jornal ou ver televisão",
+      "Lentidão para se movimentar ou falar, a ponto das outras pessoas perceberem? Ou o oposto, estar tão agitado(a) que você fica andando de um lado para o outro muito mais do que de costume",
+      "Pensar em se ferir de alguma maneira ou que seria melhor estar morto(a)"
+    ];
+    _questionarios.add(Questionario(
+        id: "10",
+        titulo: "Questionário sobre Depressão",
+        descricao: "Questionário relacionado a sinais de depressão",
+        questoes: questoes));
+
+    questoes = [
+      "Dormência ou formigamento",
+      "Sensação de calor",
+      "Tremores nas pernas",
+      "Incapaz de relaxar",
+      "Medo de que aconteça o pior",
+      "Atordoado ou tonto",
+      "Palpitação ou aceleração do coração",
+      "Sem equilíbrio",
+      "Aterrorizado",
+      "Nervoso",
+      "Sensação de sufocação",
+      "tremores nas mãos",
+      "Trêmulo",
+      "Medo de perder o controle",
+      "dificuldade de respirar",
+      "Medo de morrer",
+      "Assustado",
+      "Indigestão ou desconforto abdominal",
+      "Sensação de desmaio",
+      "Rosto afogueado",
+      "Suor (não devido ao calor)"
+    ];
+    _questionarios.add(Questionario(
+        id: "11",
+        titulo: "Questionário sobre Ansiedade",
+        descricao: "Questionário relacionado a sinais de ansiedade",
+        questoes: questoes));
+
   }
 }
 
