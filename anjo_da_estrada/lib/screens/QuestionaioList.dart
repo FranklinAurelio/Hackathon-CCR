@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:anjodaestrada/Models/Questionario.dart';
 import 'package:anjodaestrada/settings/routes.dart';
-import 'package:anjodaestrada/widgets/background_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class QuestionarioList extends StatelessWidget {
   List<Questionario> _questionarios = new List();
@@ -16,34 +15,28 @@ class QuestionarioList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          const BackgroundImageWidget(),
-          SafeArea(
-            child: ListView.builder(
-                itemCount: _questionarios.length,
-                padding: const EdgeInsets.only(top: 5.0),
-                itemBuilder: (context, index) {
-                  final questionario = _items[index].questionario;
-                  return FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.questoes,
-                        arguments: questionario,
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: _items[index],
-                    ),
+      body: SafeArea(
+        child: ListView.builder(
+            itemCount: _questionarios.length,
+            padding: const EdgeInsets.only(top: 5.0),
+            itemBuilder: (context, index) {
+              final questionario = _items[index].questionario;
+              return FlatButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.questoes,
+                    arguments: questionario,
                   );
-                }),
-          ),
-        ],
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _items[index],
+                ),
+              );
+            }),
       ),
     );
   }
@@ -192,7 +185,6 @@ class QuestionarioList extends StatelessWidget {
         descricao: "Questionário relacionado a sintomas como diarréia",
         questoes: questoes));
 
-
     questoes = [
       "Pouco interesse ou pouco prazer em fazer as coisas",
       "Se sentir pra baixo, deprimido ou sem perspectiva",
@@ -238,7 +230,6 @@ class QuestionarioList extends StatelessWidget {
         titulo: "Questionário sobre Ansiedade",
         descricao: "Questionário relacionado a sinais de ansiedade",
         questoes: questoes));
-
   }
 }
 
@@ -260,6 +251,7 @@ class QuestionarioItem extends StatelessWidget {
       child: new Material(
         borderRadius: new BorderRadius.circular(6.0),
         elevation: 2.0,
+        color: Colors.blueAccent,
         child: _getListTile(questionario, context),
       ),
     );
@@ -298,7 +290,7 @@ Widget _getTitleWidget(String titulo) {
   return new Text(
     titulo,
     maxLines: 1,
-    style: new TextStyle(fontWeight: FontWeight.bold),
+    style: new TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
   );
 }
 
@@ -307,6 +299,9 @@ Widget _getDescriptionWidget(String descricao) {
     margin: new EdgeInsets.only(top: 5.0),
     child: new Text(
       descricao,
+      style: TextStyle(
+        color: Colors.white,
+      ),
       maxLines: 2,
     ),
   );
