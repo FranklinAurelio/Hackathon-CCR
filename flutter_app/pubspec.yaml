@@ -42,6 +42,7 @@ dependencies:
   font_awesome_flutter: any
   google_map_polyline: ^0.2.0+1
   google_maps_flutter: ^0.5.24+1
+  location: ^3.0.0
 
 
 dev_dependencies:

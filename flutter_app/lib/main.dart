@@ -17,6 +17,9 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart' as LocationMgr;
 
 import 'Functions/LoginFunction.dart';
 
@@ -107,6 +110,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  static const platformChannelGeolocator = const MethodChannel('geolocator');
+
   Location startPoint;
   Location endPoint;
 
@@ -150,7 +155,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future tapInMap(LatLng latLng) async {
+      try {
+        final String result = await platformChannelGeolocator.invokeMethod(
+            'geolocator', <String, dynamic>{
+          'latitude': latLng.latitude,
+          'longitude': latLng.longitude
+        });
+        print('Geolocator is $result.');
+      } on PlatformException catch (e) {
+        print('Geolocator with problem: ${e.message}.');
+      }
 
+  }
 
   Future<void> _launched;
 
@@ -233,6 +250,7 @@ class _HomePageState extends State<HomePage> {
                         print("Erro no navigation");
                         print(e.toString());
                       }
+
                     },
                   ),
                 ),
