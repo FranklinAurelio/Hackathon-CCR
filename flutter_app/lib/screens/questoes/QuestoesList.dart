@@ -147,7 +147,6 @@ class _QuestoesListState extends State<QuestoesList> {
                               ButtonWidget(
                                 color: Colors.white,
                                 onPressed: value != null ? () {
-                                  print(value);
                                     if (questionario.questoes.asMap().length -1 != index) {
                                       _responder(value);
                                     }
