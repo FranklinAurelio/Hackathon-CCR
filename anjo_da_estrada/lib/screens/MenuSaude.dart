@@ -29,7 +29,7 @@ class _SaudeState extends State<Saude> {
               },
               color: Colors.blueAccent,
               child: Text(
-                "Questionario",
+                "Questionário",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -86,7 +86,7 @@ class _SaudeState extends State<Saude> {
               onPressed: () async {
               //
               },
-              child: Text("Dados medicos",
+              child: Text("Dados médicos",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'Roboto',
@@ -102,7 +102,7 @@ class _SaudeState extends State<Saude> {
               onPressed: () async {
                 //
               },
-              child: Text("Agendametos",
+              child: Text("Agendamentos",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'Roboto',
