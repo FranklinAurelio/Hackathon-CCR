@@ -97,7 +97,7 @@ Future<dynamic> SignIn(String email, String senha) async{
     ret[1][0] = true;
     ret[1][1] = 'Preencha com sua senha';
   }
-  /*if(ret[0][0]==false && ret[1][0]==false){
+  if(ret[0][0]==false && ret[1][0]==false){
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: senha);
     }
@@ -129,7 +129,6 @@ Future<dynamic> SignIn(String email, String senha) async{
     }
   }
 
-   */
   return ret;
 }
 
@@ -151,7 +150,7 @@ Future<dynamic> signUp(String email, String senha) async{
     ret[1][0] = true;
     ret[1][1] = 'Senha precisa ter 6 ou mais caracteres';
   }
-  /*if(ret[0][0]==false && ret[1][0]==false){
+  if(ret[0][0]==false && ret[1][0]==false){
     try{
       var userAuth = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: senha);
       await userAuth.user.sendEmailVerification();
@@ -172,7 +171,7 @@ Future<dynamic> signUp(String email, String senha) async{
     }
   }
 
-   */
+
   return ret;
 }
 

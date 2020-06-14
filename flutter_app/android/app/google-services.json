@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "461099430143",
+    "firebase_url": "https://hackathon-d4531.firebaseio.com",
+    "project_id": "hackathon-d4531",
+    "storage_bucket": "hackathon-d4531.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461099430143:android:19b8be4dca644e35051cca",
+        "android_client_info": {
+          "package_name": "com.example.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461099430143-26ue792kaq48ei8d2snpklh2g0cvemrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIJV40F-nDcl9ZPfA46U9US0dnmNoIjq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461099430143-26ue792kaq48ei8d2snpklh2g0cvemrb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
