@@ -1,25 +1,18 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:anjodaestrada/screens/Financeiro.dart';
 import 'package:anjodaestrada/screens/Login.dart';
 import 'package:anjodaestrada/settings/routes.dart';
-import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
-import 'package:loading/loading.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:sentry/sentry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mapbox_navigation/flutter_mapbox_navigation.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart' as LocationMgr;
+import 'package:sentry/sentry.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'Functions/LoginFunction.dart';
 
@@ -92,6 +85,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const <LocalizationsDelegate>[
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[Locale('pt', 'BR')],
       title: 'Anjo da estrada',
       initialRoute: AppRoutes.login,
       onGenerateRoute: AppRoutes.controller.onGenerateRoute,
@@ -100,8 +99,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class HomePage extends StatefulWidget {
-
   final LatLng destinyAddress;
+
   HomePage({this.destinyAddress});
 
   @override
@@ -109,7 +108,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   static const platformChannelGeolocator = const MethodChannel('geolocator');
 
   Location startPoint;
@@ -132,41 +130,40 @@ class _HomePageState extends State<HomePage> {
 
   void initialLocation() async {
     print("Carregando Localizacao");
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    startPoint = Location(name: "Me", latitude: position.latitude, longitude: position.longitude);
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    startPoint = Location(
+        name: "Me", latitude: position.latitude, longitude: position.longitude);
     print("${position.latitude}, ${position.longitude}");
-    setState(() { });
+    setState(() {});
   }
 
   Future<void> initPlatformState() async {
     if (!mounted) return;
 
-    _directions = MapboxNavigation(
-        onRouteProgress: (arrived) async {
-          setState(() {
-            _arrived = arrived;
-          });
+    _directions = MapboxNavigation(onRouteProgress: (arrived) async {
+      setState(() {
+        _arrived = arrived;
+      });
 
-          if (arrived) {
-            await Future.delayed(Duration(seconds: 3));
-            await _directions.finishNavigation();
-          }
-        }
-    );
+      if (arrived) {
+        await Future.delayed(Duration(seconds: 3));
+        await _directions.finishNavigation();
+      }
+    });
   }
 
   Future tapInMap(LatLng latLng) async {
-      try {
-        final String result = await platformChannelGeolocator.invokeMethod(
-            'geolocator', <String, dynamic>{
-          'latitude': latLng.latitude,
-          'longitude': latLng.longitude
-        });
-        print('Geolocator is $result.');
-      } on PlatformException catch (e) {
-        print('Geolocator with problem: ${e.message}.');
-      }
-
+    try {
+      final String result = await platformChannelGeolocator.invokeMethod(
+          'geolocator', <String, dynamic>{
+        'latitude': latLng.latitude,
+        'longitude': latLng.longitude
+      });
+      print('Geolocator is $result.');
+    } on PlatformException catch (e) {
+      print('Geolocator with problem: ${e.message}.');
+    }
   }
 
   Future<void> _launched;
@@ -183,6 +180,7 @@ class _HomePageState extends State<HomePage> {
       throw 'Could not launch $url';
     }
   }
+
   int index;
 
   @override
@@ -234,9 +232,14 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () async {
                       try {
                         print("Carregando navigation");
-                        Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                        Position position = await Geolocator()
+                            .getCurrentPosition(
+                                desiredAccuracy: LocationAccuracy.high);
 
-                        endPoint = Location(name: 'Destino', latitude:position.latitude, longitude: position.longitude);
+                        endPoint = Location(
+                            name: 'Destino',
+                            latitude: position.latitude,
+                            longitude: position.longitude);
 
                         await _directions.startNavigation(
                             origin: startPoint,
@@ -244,14 +247,12 @@ class _HomePageState extends State<HomePage> {
                             mode: NavigationMode.drivingWithTraffic,
                             simulateRoute: false,
                             units: VoiceUnits.metric,
-                            language: "Portuguese"
-                        );
+                            language: "Portuguese");
                       } catch (e) {
                         toast("Erro no mapa");
                         print("Erro no navigation");
                         print(e.toString());
                       }
-
                     },
                   ),
                 ),
@@ -318,7 +319,8 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onPressed: () async {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Finances()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Finances()));
                     },
                   ),
                 ),
@@ -354,7 +356,10 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.black,
                   onPressed: () async {
                     await logout();
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                        (Route<dynamic> route) => false);
                   },
                 ),
               ],
@@ -364,6 +369,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   void toast(String msg) {
     showToastWidget(
         Material(
@@ -386,8 +392,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
-                      fontFamily: "Roboto"
-                  ),
+                      fontFamily: "Roboto"),
                 )
               ],
             ),
@@ -400,7 +405,6 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(seconds: 4),
         animDuration: Duration(seconds: 1),
         curve: Curves.elasticOut,
-        reverseCurve: Curves.linear
-    );
+        reverseCurve: Curves.linear);
   }
 }
