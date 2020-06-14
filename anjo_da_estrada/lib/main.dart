@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:anjodaestrada/screens/Financeiro.dart';
 import 'package:anjodaestrada/screens/Login.dart';
 import 'package:anjodaestrada/settings/routes.dart';
+import 'package:anjodaestrada/widgets/button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -188,184 +189,147 @@ class _HomePageState extends State<HomePage> {
     const String toLaunch =
         'https://www.google.com/maps/@-23.2616034,-45.8944638,15z';
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Opacity(
-            opacity: 0.3,
-            child: Align(
-              alignment: Alignment.topCenter,
+      body: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 10.0,),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
               child: Image.asset(
-                "assets/images/fundo.png",
-                height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fitHeight,
+                "assets/images/logo.png",
+                width: 140,
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                //SizedBox(height: 10.0,),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    width: 140,
-                  ),
-                ),
 
-                Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.red,
-                  child: MaterialButton(
-                    height: 60.0,
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    child: Text("Navegação",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600)),
-                    onPressed: () async {
-                      try {
-                        print("Carregando navigation");
-                        Position position = await Geolocator()
-                            .getCurrentPosition(
-                                desiredAccuracy: LocationAccuracy.high);
+            ButtonWidget(
+              onPressed: () async {
+                try {
+                  print("Carregando navigation");
+                  Position position = await Geolocator().getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.high);
 
-                        endPoint = Location(
-                            name: 'Destino',
-                            latitude: position.latitude,
-                            longitude: position.longitude);
+                  endPoint = Location(
+                      name: 'Destino',
+                      latitude: position.latitude,
+                      longitude: position.longitude);
 
-                        await _directions.startNavigation(
-                            origin: startPoint,
-                            destination: endPoint,
-                            mode: NavigationMode.drivingWithTraffic,
-                            simulateRoute: false,
-                            units: VoiceUnits.metric,
-                            language: "Portuguese");
-                      } catch (e) {
-                        toast("Erro no mapa");
-                        print("Erro no navigation");
-                        print(e.toString());
-                      }
-                    },
-                  ),
+                  await _directions.startNavigation(
+                      origin: startPoint,
+                      destination: endPoint,
+                      mode: NavigationMode.drivingWithTraffic,
+                      simulateRoute: false,
+                      units: VoiceUnits.metric,
+                      language: "Portuguese");
+                } catch (e) {
+                  toast("Erro no mapa");
+                  print("Erro no navigation");
+                  print(e.toString());
+                }
+              },
+              color: Colors.blueAccent,
+              child: Text(
+                "Navegação",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: 12.0,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.red,
-                  child: MaterialButton(
-                    height: 60.0,
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    child: Text("Google maps",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600)),
-                    onPressed: () async {
-                      _launched = _launchInBrowser(toLaunch);
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 12.0,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.red,
-                  child: MaterialButton(
-                    height: 60.0,
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    child: Text("Saúde",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600)),
-                    onPressed: () async {
-                      Navigator.pushNamed(context, AppRoutes.saude);
-                      //
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 12.0,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.red,
-                  child: MaterialButton(
-                    height: 60.0,
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    child: Text("Financeiro",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600)),
-                    onPressed: () async {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Finances()));
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 12.0,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.deepOrange,
-                  child: MaterialButton(
-                    height: 60.0,
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    child: Text("Panico",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600)),
-                    onPressed: () async {
-                      Navigator.pushNamed(context, AppRoutes.panico);
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50.0,
-                ),
-                IconButton(
-                  icon: Icon(Icons.exit_to_app),
-                  iconSize: 50.0,
-                  alignment: Alignment.bottomLeft,
-                  color: Colors.black,
-                  onPressed: () async {
-                    await logout();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                        (Route<dynamic> route) => false);
-                  },
-                ),
-              ],
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 12.0,
+            ),
+            ButtonWidget(
+              onPressed: () {
+                _launched = _launchInBrowser(toLaunch);
+              },
+              color: Colors.blueAccent,
+              child: Text(
+                "Google maps",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            ButtonWidget(
+              color: Colors.blueAccent,
+              onPressed: () async {
+                Navigator.pushNamed(context, AppRoutes.saude);
+                //
+              },
+              child: Text(
+                "Saúde",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            ButtonWidget(
+              color: Colors.blueAccent,
+              onPressed: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Finances()));
+              },
+              child: Text("Financeiro",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 20.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600)),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            ButtonWidget(
+              color: Colors.blueAccent,
+              onPressed: () async {
+                Navigator.pushNamed(context, AppRoutes.panico);
+              },
+              child: Text("Panico",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 20.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600)),
+            ),
+            SizedBox(
+              width: 50.0,
+            ),
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              iconSize: 50.0,
+              alignment: Alignment.bottomLeft,
+              color: Colors.blueAccent,
+              onPressed: () async {
+                await logout();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                    (Route<dynamic> route) => false);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
