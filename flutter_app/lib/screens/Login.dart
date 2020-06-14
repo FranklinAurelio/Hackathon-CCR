@@ -328,8 +328,11 @@ class _RegisterState extends State<Register> {
   final cpf = TextEditingController();
   final phone = TextEditingController();
 
+  bool defesaCivel = false;
   bool concordoPrivacidade = false;
   bool concordoUso = false;
+  bool promocoes = false;
+  bool paradas = false;
 
   static String errorMessage = "";
 
@@ -581,6 +584,99 @@ class _RegisterState extends State<Register> {
                                       MediaQuery.of(context).size.width * 0.6,
                                   child: Text(
                                       "Li e concordo com os termos de privacidade",
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w600)),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: promocoes,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      promocoes = value;
+                                    });
+                                  },
+                                ),
+                                Container(
+                                  width:
+                                  MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                      "Permito receber notificações de promoções",
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w600)),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: paradas,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      paradas = value;
+                                    });
+                                  },
+                                ),
+                                Container(
+                                  width:
+                                  MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                      "Permito receber sugestoes de parada",
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w600)),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: defesaCivel,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      defesaCivel = value;
+                                    });
+                                  },
+                                ),
+                                Container(
+                                  width:
+                                  MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                      "Permito receber notificações da defesa civil",
                                       style: TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontSize: 17.0,

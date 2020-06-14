@@ -234,8 +234,9 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () async {
                       try {
                         print("Carregando navigation");
+                        Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
-                        endPoint = Location(name: 'Destino', latitude: this.widget.destinyAddress.latitude, longitude: this.widget.destinyAddress.longitude);
+                        endPoint = Location(name: 'Destino', latitude:position.latitude, longitude: position.longitude);
 
                         await _directions.startNavigation(
                             origin: startPoint,
@@ -251,6 +252,28 @@ class _HomePageState extends State<HomePage> {
                         print(e.toString());
                       }
 
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                Material(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Colors.red,
+                  child: MaterialButton(
+                    height: 60.0,
+                    minWidth: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    child: Text("Google maps",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600)),
+                    onPressed: () async {
+                      _launched = _launchInBrowser(toLaunch);
                     },
                   ),
                 ),
