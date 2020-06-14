@@ -177,7 +177,7 @@ class _LoginState extends State<Login> {
                             ),
                             Material(
                               borderRadius: BorderRadius.circular(8.0),
-                              color: Colors.red,
+                              color: Colors.blueAccent,
                               child: MaterialButton(
                                 height: 60.0,
                                 minWidth: MediaQuery.of(context).size.width,
@@ -295,7 +295,7 @@ class _LoginState extends State<Login> {
           ),
           Text(
             "Autenticando",
-            style: TextStyle(color: Colors.red, fontSize: 22.0),
+            style: TextStyle(color: Colors.blueAccent, fontSize: 22.0),
           )
         ],
       )),
@@ -728,7 +728,7 @@ class _RegisterState extends State<Register> {
                           ),
                           Material(
                             borderRadius: BorderRadius.circular(8.0),
-                            color: Colors.red,
+                            color: Colors.blueAccent,
                             child: MaterialButton(
                               height: 70.0,
                               minWidth: MediaQuery.of(context).size.width,
@@ -894,7 +894,7 @@ class _RegisterState extends State<Register> {
           ),
           Text(
             "Autenticando",
-            style: TextStyle(color: Colors.red, fontSize: 22.0),
+            style: TextStyle(color: Colors.blueAccent, fontSize: 22.0),
           )
         ],
       )),
