@@ -26,7 +26,9 @@ class AppRoutes {
 
   static const String saude = '/saude';
 
-  static const String questoes = "/questoes";
+  static const String questionario = "/questionario";
+
+  static const String questoes ='/questoes';
 
   static get _nativeTransition => kIsWeb || Platform.isIOS;
 
@@ -36,6 +38,7 @@ class AppRoutes {
       (context) => HomePage(),
       useNativeTransitions: _nativeTransition,
     );
+    controller.addRoute(questoes, (context) => QuestoesList());
     controller.addRoute(
       login,
       (context) => Login(),
@@ -59,7 +62,7 @@ class AppRoutes {
       useNativeTransitions: _nativeTransition);
 
     controller.addRoute(
-     questoes,
+     questionario,
      (context) => QuestoesList(),
       useNativeTransitions: _nativeTransition);
   }

@@ -2,37 +2,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Models/Questionario.dart';
 
-class QuestoesList extends StatelessWidget {
+class QuestoesList extends StatefulWidget {
+  @override
+  _QuestoesListState createState() => _QuestoesListState();
+}
 
-  final Questionario questionario;
+class _QuestoesListState extends State<QuestoesList> {
+  Questionario questionario;
+
   int index = 1;
 
-  QuestoesList({Key key, @required Questionario this.questionario}) : super(key: key);
-
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    questionario = ModalRoute.of(context).settings.arguments;
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(questionario.titulo),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(children: <Widget>[
-          _getQuestao(),
-        ]
-        )
-      )
-    );
-
+        appBar: AppBar(
+          title: Text(questionario.titulo),
+        ),
+        body: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(children: <Widget>[
+              _getQuestao(),
+            ])));
   }
 
-  Widget _getQuestao(){
+  Widget _getQuestao() {
     return new Container(
-      height: 95.0,
-      child: new Text (questionario.questoes.asMap()[index].toString())
-      );
+        height: 95.0,
+        child: new Text(questionario.questoes.asMap()[index].toString()));
   }
-
 }

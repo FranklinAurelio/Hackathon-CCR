@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterapp/Models/Questionario.dart';
-import 'package:flutterapp/screens/QuestoesList.dart';
+import 'package:flutterapp/settings/routes.dart';
 
 class QuestionarioList extends StatelessWidget {
   List<Questionario> _questionarios = new List();
@@ -30,7 +30,22 @@ class QuestionarioList extends StatelessWidget {
                 itemCount: _questionarios.length,
                 padding: const EdgeInsets.only(top: 5.0),
                 itemBuilder: (context, index) {
-                  return _items[index];
+                  final questionario = _items[index].questionario;
+                  return FlatButton(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.questoes,
+                        arguments: questionario,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: _items[index],
+                    ),
+                  );
                 }),
           ),
         ],
@@ -79,9 +94,10 @@ class QuestionarioList extends StatelessWidget {
       "Você já estava com dor de cabeça e ela piorou muito? ",
       "A dor de cabeça não melhora com analgésicos, como Dipirona e Paracetamol?",
       "A dor de cabeça é de forte intensidade e começou muito rápido?",
-      "Você apresenta sintomas como ferbe, perda de peso recente, manchas na pele, dor nas costas ou no pescoço ao mexer a cabeça?",
+      "Você apresenta sintomas como febre, perda de peso recente, manchas na pele, dor nas costas ou no pescoço ao mexer a cabeça?",
       "Você está com a visão embaçada e ou sonolência fora do normal?",
-      "Caso você tenha enxaqueca, a dor de cabeça agora parece mais forte do que as que você já teve antes?"
+      "Caso você tenha enxaqueca, a dor de cabeça agora parece mais forte do que as que você já teve antes?",
+      "Você está com fraqueza em algum braço ou perna?"
     ];
     _questionarios.add(Questionario(
         id: "3",
@@ -213,31 +229,26 @@ Widget _getListTile(Questionario questionario, BuildContext context) {
     child: new Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _getColumText(questionario, context),
+        Expanded(
+          child: _getColumText(questionario, context),
+        ),
       ],
     ),
   );
 }
 
 Widget _getColumText(Questionario questionario, BuildContext context) {
-  return GestureDetector(
-      onTap: () async {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    QuestoesList(questionario: questionario)));
-      },
-      child: new Container(
-          margin: new EdgeInsets.all(10.0),
-          child: new Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _getTitleWidget(questionario.titulo),
-              _getDescriptionWidget(questionario.descricao)
-            ],
-          )));
+  return new Container(
+    margin: new EdgeInsets.all(10.0),
+    child: new Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _getTitleWidget(questionario.titulo),
+        _getDescriptionWidget(questionario.descricao)
+      ],
+    ),
+  );
 }
 
 Widget _getTitleWidget(String titulo) {
