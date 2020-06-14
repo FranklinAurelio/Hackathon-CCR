@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:anjodaestrada/screens/Financeiro.dart';
 import 'package:anjodaestrada/screens/Login.dart';
+import 'package:anjodaestrada/screens/MenuSaude.dart';
 import 'package:anjodaestrada/settings/routes.dart';
 import 'package:anjodaestrada/widgets/button.dart';
 import 'package:flutter/foundation.dart';
@@ -265,7 +266,8 @@ class _HomePageState extends State<HomePage> {
             ButtonWidget(
               color: Colors.blueAccent,
               onPressed: () async {
-                Navigator.pushNamed(context, AppRoutes.saude);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Saude()));
                 //
               },
               child: Text(
