@@ -2,13 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutterapp/screens/QuestionaioList.dart';
-import 'package:flutterapp/screens/QuestoesList.dart';
+import 'file:///C:/projetos/Hackathon-CCR/flutter_app/lib/screens/questoes/QuestoesList.dart';
 import 'package:flutterapp/screens/panico.dart';
 import 'package:router_management/router_management.dart';
 
-import '../Models/Questionario.dart';
 import '../main.dart';
-import '../screens/Login.dart';
 import '../screens/Login.dart';
 
 class AppRoutes {
@@ -28,7 +26,7 @@ class AppRoutes {
 
   static const String questionario = "/questionario";
 
-  static const String questoes ='/questoes';
+  static const String questoes = '/questoes';
 
   static get _nativeTransition => kIsWeb || Platform.isIOS;
 
@@ -38,7 +36,11 @@ class AppRoutes {
       (context) => HomePage(),
       useNativeTransitions: _nativeTransition,
     );
-    controller.addRoute(questoes, (context) => QuestoesList());
+    controller.addRoute(
+      questoes,
+      (context) => QuestoesList(),
+      useNativeTransitions: _nativeTransition,
+    );
     controller.addRoute(
       login,
       (context) => Login(),
@@ -56,16 +58,10 @@ class AppRoutes {
       useNativeTransitions: _nativeTransition,
     );
 
-    controller.addRoute(
-        saude,
-        (context) => QuestionarioList(),
-      useNativeTransitions: _nativeTransition);
+    controller.addRoute(saude, (context) => QuestionarioList(),
+        useNativeTransitions: _nativeTransition);
 
-    controller.addRoute(
-     questionario,
-     (context) => QuestoesList(),
-      useNativeTransitions: _nativeTransition);
+    controller.addRoute(questionario, (context) => QuestoesList(),
+        useNativeTransitions: _nativeTransition);
   }
-
-
 }

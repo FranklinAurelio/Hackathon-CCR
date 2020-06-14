@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterapp/Models/Questionario.dart';
 import 'package:flutterapp/settings/routes.dart';
+import 'package:flutterapp/widgets/background_image.dart';
 
 class QuestionarioList extends StatelessWidget {
   List<Questionario> _questionarios = new List();
@@ -18,13 +19,7 @@ class QuestionarioList extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Opacity(
-            opacity: 0.3,
-            child: Image.asset(
-              "assets/images/fundo.png",
-              fit: BoxFit.fitHeight,
-            ),
-          ),
+          const BackgroundImageWidget(),
           SafeArea(
             child: ListView.builder(
                 itemCount: _questionarios.length,
