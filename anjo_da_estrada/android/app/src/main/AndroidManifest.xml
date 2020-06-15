@@ -13,7 +13,7 @@
         android:label="Anjo da Estrada"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC1A8S4pj9owTpw50y2ZhJugITTSeCYkbA"/>
+            android:value="@string/api_key"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
